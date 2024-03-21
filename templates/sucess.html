@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #007bff;
+        }
+        .success-message {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #28a745;
+        }
+        .info-section {
+            margin-top: 30px;
+        }
+        .info-label {
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Success</h1>
+        <p class="success-message">Thank you for your payment!</p>
+        <div class="info-section">
+            <p><span class="info-label">Transaction ID:</span> {{ transaction_id }}</p>
+            <p><span class="info-label">Amount Paid:</span> ${{ amount_paid }}</p>
+            <p><span class="info-label">Payment Method:</span> {{ payment_method }}</p>
+            <p><span class="info-label">Date:</span> {{ payment_date }}</p>
+        </div>
+        <a href="{% url 'home' %}" class="button">Go to Homepage</a>
+    </div>
+</body>
+</html>
