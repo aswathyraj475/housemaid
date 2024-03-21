@@ -682,57 +682,30 @@ def payment_page(request, order_id):
 
 
 
-    # if request.method == 'POST':
-    #         # Handle payment logic here using the provided payment details
-    #         cardholder_name = request.POST.get('cardholder_name')
-    #         card_number = request.POST.get('card_number')
-    #         expiration_date = request.POST.get('expiration_date')
-    #         cvv = request.POST.get('cvv')
-    #         amount_received=request.POST.get('amount_received')
-    #         # Create payment associated with the order
-    #         payment = Payment.objects.create(
-    #             cardholder_name=cardholder_name,
-    #             amount_received=amount_received,
-    #
-    #         )
-    #
-    #         # Associate the payment with the order
-    #         order.payment = payment
-    #         order.save()
+        if request.method == 'POST':
+            # Handle payment logic here using the provided payment details
+            cardholder_name = request.POST.get('cardholder_name')
+            card_number = request.POST.get('card_number')
+            expiration_date = request.POST.get('expiration_date')
+            cvv = request.POST.get('cvv')
+            amount_received=request.POST.get('amount_received')
+            # Create payment associated with the order
+            payment = Payment.objects.create(
+                cardholder_name=cardholder_name,
+                amount_received=amount_received,
+
+            )
+
+            # Associate the payment with the order
+            order.payment = payment
+            order.save()
 
 
-            # messages.success(request, 'Payment done successfully!')
-            #return redirect('siteusers:home')  # You can redirect or render a success page here
-# login_required
-# def initiate_payment_view(request):
-        total = order.payment_amount
+            messages.success(request, 'Payment done successfully!')
+            return redirect('siteusers:home')  # You can redirect or render a success page here
 
-        amount = float(total) * 100  # Amount in paise
-        client = razorpay.Client(auth=(settings.KEY, settings.SECRET))
 
-        payment_data = {
-            "amount": amount,
-            "currency": "INR",
-            "receipt": "order_receipt01",
-        }
-
-        order = client.order.create(data=payment_data)
-
-        # Include key, name, description, and image in the JSON response
-        response_data = {
-            "id": order["id"],
-            "amount": int(order["amount"]) / 100,
-            "currency": order["currency"],
-            "key": settings.KEY,
-            "name": "gym-app",
-            "description": "Payment for Your Product",
-            "image": "https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/06/shopping-online.jpg",
-            # Replace with your logo URL
-        }
-
-        # return render(request, "payment.html", {'data': response_data})
-
-        context = {'order': order,'response_data':response_data}
+        context = {'order': order}
         return render(request, 'payment.html', context)
 
 def contact(request):
